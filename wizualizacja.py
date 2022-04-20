@@ -78,7 +78,6 @@ def do(start_date=1880):
     wag = []
 
     i = (start_date - 1880)*12
-    start = False
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -154,8 +153,14 @@ def do(start_date=1880):
                         mozna_rysowac = False
 
         else:
-            break
-            time.sleep(1)
+            if i == 1680:
+                plt.plot(daty, temperatury, 'k-o')
+                plt.title('Średnia temperatura Ziemi z okresu {}-2019'.format(start_date))
+                plt.ylabel('Temperatura')
+                plt.xlabel('Rok')
+                plt.grid()
+                plt.show()
+
             data += 1
             B = A - liczba - 14
             rok = myfont.render('Rok:{}'.format(data), 1, (0, 0, 0))
@@ -212,16 +217,11 @@ def do(start_date=1880):
                     screen.blit(zm_temp, (180 + j, 640))
                     mozna_rysowac = False
 
+            time.sleep(1)
+
         pygame.display.flip()
         i += 1
 
-    plt.plot(daty, temperatury, 'k')
-    plt.title('Średnia temperatura Ziemi z okresu 1880-2019')
-    plt.ylabel('Temperatura')
-    plt.xlabel('Rok')
-    plt.grid()
-    plt.show()
 
 if __name__ == '__main__':
-    do()
-
+    do(2015)
